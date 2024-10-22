@@ -12,7 +12,7 @@ import { IKContext } from 'imagekitio-react';
 import ImageKitContextProvider from './contexts/ImageKitContext';
 import axios from 'axios';
 import { CssBaseline } from '@mui/material';
-import { CookiesProvider } from 'react-cookie';
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 function App() {
