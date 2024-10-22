@@ -30,9 +30,9 @@ function App() {
       if(response?.status!==200){
         throw new Error(`Request failed with status ${response.status}`);
       }
-      const { signature, expire } = response?.data; // Removed 'token'
-      console.log("sig ", signature, "exp ", expire);
-      return { signature, expire };
+      const {signature,expire,token}=response?.data ;
+      //console.log("sig ",signature,"exp ",expire,"tok ",token);
+      return {signature,expire,token}
     } catch (error) {
       console.error("Authenticator Error:", error);
       throw new Error(`Authentication request failed: ${error.message}`);
