@@ -25,6 +25,7 @@ function App() {
         throw new Error(`Request failed with status ${response.status}`);
       }
       const {signature,expire,token}=response?.data ;
+      console.log("sig ",signature,"exp ",expire,"tok ",token);
       return {signature,expire,token}
     } catch (error) {
       throw new Error(`Authentication request faliled: `);
