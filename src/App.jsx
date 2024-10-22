@@ -18,17 +18,24 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 function App() {
   const [count, setCount] = useState(0)
   const {mode,handleSetTheme }= useThemeContext();
+  const [cookies] = useCookies(['token']); // Access cookies
   const authenticator = async (callback) => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/img-kit/auth`);
+      const response = await axios.get(`${BASE_URL}/api/img-kit/auth`, {
+        headers: {
+          Authorization: `Bearer ${cookies.token}`, // Include the token
+        },
+        withCredentials: true, // Include cookies if needed
+      });
       if(response?.status!==200){
         throw new Error(`Request failed with status ${response.status}`);
       }
-      const {signature,expire,token}=response?.data ;
-      console.log("sig ",signature,"exp ",expire,"tok ",token);
-      return {signature,expire,token}
+      const { signature, expire } = response?.data; // Removed 'token'
+      console.log("sig ", signature, "exp ", expire);
+      return { signature, expire };
     } catch (error) {
-      throw new Error(`Authentication request faliled: `);
+      console.error("Authenticator Error:", error);
+      throw new Error(`Authentication request failed: ${error.message}`);
     }
   };
 
