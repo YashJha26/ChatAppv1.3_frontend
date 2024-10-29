@@ -42,7 +42,7 @@ const SocketContextProvider = ({children}) => {
                 socket.off("disconnect",()=>{});
             }
         }
-    },[])
+    },[socket, loggedInUser])
     return (
     <SocketContext.Provider value={{socket}}>
       {children}
